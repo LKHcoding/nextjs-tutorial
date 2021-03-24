@@ -11,7 +11,7 @@ const ItemList = ({ list }) => {
           {list.map((item, i) => {
             return (
               <Grid.Column key={item.id}>
-                <Link href={`/view/${item.id}`}>
+                <Link href="/view/[id]" as={`/view/${item.id}`}>
                   <a>
                     <div className={styles.wrap}>
                       <img
