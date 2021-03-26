@@ -5,7 +5,7 @@ import Item from "../../src/component/Item";
 import { Loader } from "semantic-ui-react";
 import Head from "next/head";
 
-const Post = ({ item }) => {
+const Post = ({ item, name }) => {
   // const router = useRouter();
   // const { id } = router.query;
 
@@ -44,6 +44,7 @@ const Post = ({ item }) => {
             <title>{item.name}</title>
             <meta name="description" content={item.description} />
           </Head>
+          {`${name} 환경 입니다.`}
           <Item item={item} />
         </>
       )}
@@ -62,6 +63,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       item: data,
+      name: process.env.name,
     },
   };
 }
