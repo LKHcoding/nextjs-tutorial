@@ -9,6 +9,11 @@ const Post = ({ item, name }) => {
   const router = useRouter();
 
   if (router.isFallback) {
+    /**
+     * 정적 생성이 안 된 페이지 같은경우 접속시에 빈화면이 잠깐 나오는데
+     * 그 부분을 로딩 화면으로 처리 함.
+     * router.isFallback을 통해 알 수 있음.
+     */
     return (
       <div style={{ padding: "100px 0" }}>
         <Loader active inline="centered">
@@ -68,6 +73,10 @@ export async function getStaticPaths() {
   const apiUrl = process.env.apiUrl;
   const res = await Axios.get(apiUrl);
   const data = res.data;
+  /**
+   * api를 통해 화면에 보여줄 리스트를 구하고,
+   * paths를 리스트를 통해 넘겨준다.
+   */
 
   return {
     // paths: [
@@ -75,7 +84,7 @@ export async function getStaticPaths() {
     //   { params: { id: "730" } },
     //   { params: { id: "729" } },
     // ],
-    paths: data.map((item) => ({
+    paths: data.slice(0, 9).map((item) => ({
       params: {
         id: item.id.toString(),
       },
